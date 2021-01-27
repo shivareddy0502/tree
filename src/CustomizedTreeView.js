@@ -1,24 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
-import TreeItem from '@material-ui/lab/TreeItem';
 import Node from './Node'
 import Sidebar from "react-sidebar";
-
-
-import { BrowserRouter as Router, Switch, Route, Link  } from "react-router-dom";
-
-import {CloseSquare, MinusSquare, PlusSquare, TransitionComponent} from './CustomIcons'
+import { BrowserRouter as Router, Switch, Route  } from "react-router-dom";
+import {MinusSquare, PlusSquare} from './CustomIcons'
+import { AddTreeItem } from './AddTreeItem';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
-
-const StyledTreeItem = withStyles((theme) => ({
-  iconContainer: {
-    '& .close': {
-      opacity: 0.3,
-    },
-  },
-}))((props) => <TreeItem endIcon={<CloseSquare path={props.iconPath}/>} {...props} TransitionComponent={TransitionComponent} />);
 
 const useStyles = makeStyles({
   root: {
@@ -29,33 +18,12 @@ const useStyles = makeStyles({
   },
 });
 
-
-
 export default function CustomizedTreeView({treeData}) {
   const classes = useStyles();
 
   const [sidebarDocked, setSidebarDocked] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [showButton, setShowButton] = useState(false)
-
-  function addChild(node){
-    if(node.nodes != undefined && node.nodes.length > 0){
-        return (
-          <StyledTreeItem nodeId={node.key} label={node.label}>
-            {
-              node.nodes.map(ele=>addChild(ele))
-            }
-          </StyledTreeItem>
-        )
-    }
-    else{
-      return (
-        <Link onClick={onSetSidebarOpen} to={node.url} style={{ textDecoration: 'none', color: 'black' }}>
-          <StyledTreeItem nodeId={node.key} label={node.label} iconPath={node.iconPath}/>
-        </Link>
-        )
-    }
-  }
 
   useEffect(()=>{
     mql.addEventListener("change",mediaQueryChanged);
@@ -76,7 +44,7 @@ export default function CustomizedTreeView({treeData}) {
     
   }
   
-  const treeView = treeData.map(node=>addChild(node))
+  const treeView = treeData.map(node=><AddTreeItem key={node.key} node={node} onSetSidebarOpen={onSetSidebarOpen}></AddTreeItem>)
   return (
     <Router>
       <div>
