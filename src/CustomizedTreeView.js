@@ -5,7 +5,9 @@ import Node from './Node'
 import Sidebar from "react-sidebar";
 import { BrowserRouter as Router, Switch, Route  } from "react-router-dom";
 import {MinusSquare, PlusSquare} from './CustomIcons'
-import { AddTreeItem } from './AddTreeItem';
+import { TreeItemText } from './TreeItemText';
+import { TreeItemIcon } from './TreeItemIcon';
+import { TreeItemCloseIcon } from './TreeItemCloseIcon';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -44,7 +46,6 @@ export default function CustomizedTreeView({treeData}) {
     
   }
   
-  const treeView = treeData.map(node=><AddTreeItem key={node.key} node={node} onSetSidebarOpen={onSetSidebarOpen}></AddTreeItem>)
   return (
     <Router>
       <div>
@@ -54,12 +55,20 @@ export default function CustomizedTreeView({treeData}) {
           defaultExpanded={['1']}
           defaultCollapseIcon={<MinusSquare />}
           defaultExpandIcon={<PlusSquare />}
-          //defaultEndIcon={<CloseSquare/>}
-
-          
         >
-         
-          {treeView}
+        {
+          treeData.map(node=>{
+            if(node.type===0){
+              return <TreeItemText key={node.key} node={node} onSetSidebarOpen={onSetSidebarOpen}/>
+            }
+            else if(node.type===1){
+              return <TreeItemIcon key={node.key} node={node} onSetSidebarOpen={onSetSidebarOpen}/>
+            }
+            if(node.type===2){
+              return <TreeItemCloseIcon key={node.key} node={node} onSetSidebarOpen={onSetSidebarOpen}/>
+            }
+          })
+        }
         </TreeView>
         }
         open={sidebarOpen}
@@ -69,7 +78,7 @@ export default function CustomizedTreeView({treeData}) {
       >
         
         {
-          <button style={{ display: "flex", marginLeft: "-1" }} onClick={() => onSetSidebarOpen(true)}>
+          <button style={{ display: "flex", marginLeft: "-1" }} id="ClickButton" onClick={() => onSetSidebarOpen(true)}>
           Open sidebar
           </button> 
         }

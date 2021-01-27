@@ -3,12 +3,14 @@ import './App.css';
 import CustomizedTreeView from './CustomizedTreeView';
 
 
+
 function App() {
 
   const treeData = [{
     key:'Command_Center',
     label:'Command Center',
     url:'',
+    type:0,
     iconPath:'',
     nodes : [{
       key:'Command_Center_Schedule',
@@ -19,14 +21,14 @@ function App() {
         key:'1_Command',
         label:'1 - Command',
         url:'/1_command',
-        iconPath:'M10,1.375c-3.17,0-5.75,2.548-5.75,5.682c0,6.685,5.259,11.276,5.483,11.469c0.152,0.132,0.382,0.132,0.534,0c0.224-0.193,5.481-4.784,5.483-11.469C15.75,3.923,13.171,1.375,10,1.375 M10,17.653c-1.064-1.024-4.929-5.127-4.929-10.596c0-2.68,2.212-4.861,4.929-4.861s4.929,2.181,4.929,4.861C14.927,12.518,11.063,16.627,10,17.653 M10,3.839c-1.815,0-3.286,1.47-3.286,3.286s1.47,3.286,3.286,3.286s3.286-1.47,3.286-3.286S11.815,3.839,10,3.839 M10,9.589c-1.359,0-2.464-1.105-2.464-2.464S8.641,4.661,10,4.661s2.464,1.105,2.464,2.464S11.359,9.589,10,9.589',
+        iconLabel:'CMD',
         nodes :[]
       },
       {
         key:'2_Command',
         label:'2 - Command',
         url:'/2_command',
-        iconPath:'M17.218,2.268L2.477,8.388C2.13,8.535,2.164,9.05,2.542,9.134L9.33,10.67l1.535,6.787c0.083,0.377,0.602,0.415,0.745,0.065l6.123-14.74C17.866,2.46,17.539,2.134,17.218,2.268 M3.92,8.641l11.772-4.89L9.535,9.909L3.92,8.641z M11.358,16.078l-1.268-5.613l6.157-6.157L11.358,16.078z',
+        iconLabel:'DMC',
         nodes :[]
       }]
     }]
@@ -35,6 +37,7 @@ function App() {
     key:'Resources',
     label:'Resources',
     url:'',
+    type:1,
     iconPath:'',
     nodes : [{
       key:'Resources_Schedule',
@@ -80,10 +83,9 @@ function App() {
   }]
 
   return (
-    <div className="App">
-      <CustomizedTreeView treeData={treeData}></CustomizedTreeView>    
-      
-    </div>
+      <div className="App">
+        <CustomizedTreeView treeData={treeData}></CustomizedTreeView>    
+      </div>
   );
 }
 

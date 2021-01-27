@@ -10,15 +10,15 @@ const StyledTreeItem = withStyles((theme) => ({
         opacity: 0.3,
       },
     },
-  }))((props) => <TreeItem endIcon={<CloseSquare path={props.iconPath}/>} {...props} TransitionComponent={TransitionComponent} />);
+  }))((props) => <TreeItem endIcon={<CloseSquare/>} {...props} TransitionComponent={TransitionComponent} />);
   
 
-export function AddTreeItem({node, onSetSidebarOpen}){
+export function TreeItemCloseIcon({node, onSetSidebarOpen}){
     if(node.nodes != undefined && node.nodes.length > 0){
         return (
           <StyledTreeItem nodeId={node.key} label={node.label}>
             {
-              node.nodes.map(ele=><AddTreeItem key={ele.key} node={ele}></AddTreeItem>)
+              node.nodes.map(ele=><TreeItemCloseIcon key={ele.key} node={ele}/>)
             }
           </StyledTreeItem>
         )
