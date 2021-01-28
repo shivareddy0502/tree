@@ -5,9 +5,6 @@ import Node from './Node'
 import Sidebar from "react-sidebar";
 import { BrowserRouter as Router, Switch, Route  } from "react-router-dom";
 import {MinusSquare, PlusSquare} from './CustomIcons'
-import { TreeItemText } from './TreeItemText';
-import { TreeItemIcon } from './TreeItemIcon';
-import { TreeItemCloseIcon } from './TreeItemCloseIcon';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -20,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTreeView({treeData}) {
+export default function CommonTree(props) {
   const classes = useStyles();
 
   const [sidebarDocked, setSidebarDocked] = useState(false)
@@ -56,20 +53,7 @@ export default function CustomizedTreeView({treeData}) {
           defaultExpandIcon={<PlusSquare />}
         >
         {
-          treeData.map(node=>{
-            if(node.type===0){
-              return <TreeItemText key={node.key} node={node} onSetSidebarOpen={onSetSidebarOpen}/>
-            }
-            else if(node.type===1){
-              return <TreeItemIcon key={node.key} node={node} onSetSidebarOpen={onSetSidebarOpen}/>
-            }
-            else if(node.type===2){
-              return <TreeItemCloseIcon key={node.key} node={node} onSetSidebarOpen={onSetSidebarOpen}/>
-            }
-            else{
-              return null
-            }
-          })
+            props.render(onSetSidebarOpen)
         }
         </TreeView>
         }

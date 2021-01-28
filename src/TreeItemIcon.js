@@ -14,7 +14,7 @@ const StyledTreeItem = withStyles((theme) => ({
   
 
 export function TreeItemIcon({node, onSetSidebarOpen}){
-    if(node.nodes != undefined && node.nodes.length > 0){
+    if(node.nodes !== undefined && node.nodes.length > 0){
         return (
           <StyledTreeItem nodeId={node.key} label={node.label}>
             {

@@ -41,9 +41,9 @@ export function CustomIcon(props){
 
 export function CustomIconText(props){
   return (
-    <React.Fragment>
+    <div className="row">
       <div className="treeItem">{props.label}</div>
-    </React.Fragment>
+    </div>
   );
 }
 

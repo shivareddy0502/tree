@@ -4,4 +4,6 @@
     border-radius: 3px;
     font-size: 14px;
     padding: 2px;
+    float: left;
+    width: 35px;
   }

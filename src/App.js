@@ -1,6 +1,11 @@
 
 import './App.css';
 import CustomizedTreeView from './CustomizedTreeView';
+import CommonTreeTwo from './CommonTreeTwo'
+
+import { TreeItemText } from './TreeItemText';
+import { TreeItemIcon } from './TreeItemIcon';
+import { TreeItemCloseIcon } from './TreeItemCloseIcon';
 
 
 
@@ -21,7 +26,7 @@ function App() {
         key:'1_Command',
         label:'1 - Command',
         url:'/1_command',
-        iconLabel:'CMD',
+        iconLabel:'C',
         nodes :[]
       },
       {
@@ -84,7 +89,25 @@ function App() {
 
   return (
       <div className="App">
-        <CustomizedTreeView treeData={treeData}></CustomizedTreeView>    
+        {/* <CustomizedTreeView treeData={treeData}></CustomizedTreeView>   */}
+
+        <CommonTreeTwo render={
+            (onSetSidebarOpen)=>{
+              return treeData.map(node=>{
+                if(node.type === 0 ) { //'text'
+                  return <TreeItemText key={node.key} node={node} onSetSidebarOpen={onSetSidebarOpen}/>
+                }
+                else if(node.type === 1){ //'custom'
+                    return <TreeItemIcon key={node.key} node={node} onSetSidebarOpen={onSetSidebarOpen}/>
+                }
+                else if(node.type === 2){ //'default'
+                    return <TreeItemCloseIcon key={node.key} node={node} onSetSidebarOpen={onSetSidebarOpen}/>
+                }
+              });
+            }
+        }>
+        </CommonTreeTwo>
+
       </div>
   );
 }
